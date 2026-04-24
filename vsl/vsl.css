@@ -96,7 +96,7 @@ body {
     max-width: 560px; /* Alinhado com a presell */
     width: 100%;
     margin: 0 auto 10px;
-    aspect-ratio: 16 / 9; /* Reserva espaço para evitar CLS */
+    aspect-ratio: 3 / 4; /* Ajustado conforme feedback: 3/4 */
     background-color: #f0f0f0;
     border-radius: 6px;
     overflow: hidden;
@@ -105,7 +105,7 @@ body {
 vturb-smartplayer {
     width: 100% !important;
     height: auto !important;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 3 / 4;
 }
 
 .video-placeholder {
