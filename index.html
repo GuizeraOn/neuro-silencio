@@ -13,7 +13,7 @@
   <!-- Open Graph / Meta -->
   <meta property="og:title" content="¿El mayor enemigo del tinnitus? Descubre el secreto de 5 minutos" />
   <meta property="og:description" content="Esta rutina nocturna detiene el zumbido en los oídos. Mira el descubrimiento impactante." />
-  <meta property="og:image" content="https://i.postimg.cc/XqmPyZFs/1776959149198-019dbb04-3894-73a9-a8c0-2743d945c408.webp" />
+  <meta property="og:image" content="/images/thumb.webp" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
 
@@ -24,10 +24,15 @@
   <!-- Preconnect to external domains -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://i.postimg.cc">
   
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+  <!-- PERF FIX #2: Google Fonts carregada de forma assíncrona -->
+  <link rel="preload" 
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" 
+        as="style" 
+        onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+  </noscript>
 
   <style>
     * {
@@ -45,7 +50,7 @@
 
     body {
       background-color: #ffffff;
-      font-family: 'Roboto', sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
       color: #000000;
       text-align: center;
       line-height: 1.4;
@@ -177,24 +182,29 @@
     <h2 class="headline-black">Esta rutina nocturna de 5 minutos detiene el zumbido en los oídos</h2>
 
     <a id="video-link" class="video-wrap" href="vsl/index.html" aria-label="Ver el video informativo sobre el tinnitus">
+      <!-- PERF FIX #3 & #4: LCP image optimized + local hosting -->
       <img
-        src="https://i.postimg.cc/XqmPyZFs/1776959149198-019dbb04-3894-73a9-a8c0-2743d945c408.webp"
+        src="/images/thumb.webp"
         alt="Reproducir video sobre la rutina de 5 minutos para el tinnitus"
-        width="560"
-        height="315"
+        width="669"
+        height="412"
         loading="eager"
+        fetchpriority="high"
+        decoding="sync"
       />
     </a>
 
     <p class="caption">(Mira el impactante descubrimiento en el minuto 1:45)</p>
 
     <div class="trust-wrap">
+      <!-- PERF FIX #1 & #4: Trust badges optimized + local hosting -->
       <img
-        src="https://i.postimg.cc/k5HYH6Yq/image-Photoroom-2026-04-23T124930-387.png"
+        src="/images/selos.webp"
         alt="Estrellas de calificación y sellos de confianza"
         width="240"
         height="60"
         loading="lazy"
+        decoding="async"
       />
     </div>
 
@@ -212,4 +222,3 @@
 </body>
 </html>
 <!-- Build trigger: 2026-04-24 -->
-
