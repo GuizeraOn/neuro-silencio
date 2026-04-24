@@ -93,21 +93,9 @@ body {
 }
 
 .video-wrapper {
-    max-width: 400px; /* Reduzido para vídeos verticais 3:4 */
+    max-width: 100%;
     width: 100%;
     margin: 0 auto 10px;
-    aspect-ratio: 3 / 4 !important;
-    background-color: #000; /* Fundo preto para o player */
-    border-radius: 6px;
-    overflow: hidden;
-    position: relative;
-}
-
-vturb-smartplayer {
-    width: 100% !important;
-    height: 100% !important;
-    display: block !important;
-    aspect-ratio: 3 / 4 !important;
 }
 
 .video-placeholder {
