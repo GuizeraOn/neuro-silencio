@@ -12,7 +12,7 @@ body {
 }
 
 body {
-    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+    font-family: 'Roboto', sans-serif;
     background-color: #ffffff;
     color: #000000;
     text-align: center;
@@ -21,7 +21,6 @@ body {
     -webkit-font-smoothing: antialiased;
     word-break: break-word;
     overflow-wrap: break-word;
-    font-display: swap;
 }
 
 .vsl-container {
@@ -93,8 +92,8 @@ body {
 }
 
 .video-wrapper {
-    max-width: 100%;
-    width: 100%;
+    max-width: 440px;
+    /* Mais estreito simulando proporção 3:4 vista na imagem */
     margin: 0 auto 10px;
 }
 
