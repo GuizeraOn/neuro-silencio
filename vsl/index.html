@@ -22,18 +22,19 @@
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     
-    <!-- PERF FIX #4: Preconnects para origens críticas (ANTES de tudo) -->
     <link rel="preconnect" href="https://cdn.converteai.net" crossorigin>
     <link rel="preconnect" href="https://vt-h-1.b-cdn.net" crossorigin>
     <link rel="preconnect" href="https://scripts.converteai.net" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <!-- DNS prefetch para origens secundárias -->
-    <link rel="dns-prefetch" href="https://connect.facebook.net">
-    <link rel="dns-prefetch" href="https://www.facebook.com">
+    <!-- DNS prefetch para VTurb e secundários -->
+    <link rel="dns-prefetch" href="https://cdn.converteai.net">
+    <link rel="dns-prefetch" href="https://scripts.converteai.net">
     <link rel="dns-prefetch" href="https://images.converteai.net">
     <link rel="dns-prefetch" href="https://api.vturb.com.br">
+    <link rel="dns-prefetch" href="https://connect.facebook.net">
+    <link rel="dns-prefetch" href="https://www.facebook.com">
     
     <!-- PERF FIX #1: Google Fonts carregada de forma assíncrona + apenas pesos 400 e 700 -->
     <link rel="preload" 
@@ -70,11 +71,10 @@
     <script>!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);</script>
     <link rel="preload" href="https://scripts.converteai.net/52ab898a-2836-4436-851f-b100491ec425/players/69ea48809813ca264c297441/v4/player.js" as="script">
     <link rel="preload" href="https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js" as="script">
+    <link rel="preload" href="https://cdn.converteai.net/52ab898a-2836-4436-851f-b100491ec425/69ea461b05c3ed4453df493f/main.m3u8" as="fetch">
     
     <!-- PRIORIDADE 1: Preload da imagem Smart AutoPlay (LCP) -->
     <link rel="preload" as="image" href="https://cdn.converteai.net/52ab898a-2836-4436-851f-b100491ec425/2026/04/20/69e6541a204603000104c6da.png" fetchpriority="high">
-    
-    <link rel="preload" href="https://cdn.converteai.net/52ab898a-2836-4436-851f-b100491ec425/69ea461b05c3ed4453df493f/main.m3u8" as="fetch">
     
     <!-- PERF FIX #3: Meta Pixel carregado de forma lazy (após 3s ou interação) -->
     <script>
