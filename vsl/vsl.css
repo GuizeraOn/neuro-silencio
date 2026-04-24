@@ -93,14 +93,24 @@ body {
 }
 
 .video-wrapper {
-    max-width: 440px;
-    /* Voltando ao original */
+    max-width: 560px; /* Alinhado com a presell */
+    width: 100%;
     margin: 0 auto 10px;
+    aspect-ratio: 16 / 9; /* Revertido para 16:9 para evitar cortes */
+    background-color: #f0f0f0;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+vturb-smartplayer {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 16 / 9;
 }
 
 .video-placeholder {
     width: 100%;
-    aspect-ratio: 4/5;
+    aspect-ratio: 16 / 9;
     border: 1px solid #777;
     /* Borda acinzentada fina do placeholder original */
     background-color: #ffffff;
