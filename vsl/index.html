@@ -22,47 +22,82 @@
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     
-    <!-- Preconnect for performance -->
+    <!-- PERF FIX #4: Preconnects para origens críticas (ANTES de tudo) -->
+    <link rel="preconnect" href="https://cdn.converteai.net" crossorigin>
+    <link rel="preconnect" href="https://vt-h-1.b-cdn.net" crossorigin>
+    <link rel="preconnect" href="https://scripts.converteai.net" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://scripts.converteai.net">
-    <link rel="preconnect" href="https://cdn.converteai.net">
+
+    <!-- DNS prefetch para origens secundárias -->
+    <link rel="dns-prefetch" href="https://connect.facebook.net">
+    <link rel="dns-prefetch" href="https://www.facebook.com">
+    <link rel="dns-prefetch" href="https://images.converteai.net">
+    <link rel="dns-prefetch" href="https://api.vturb.com.br">
     
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/vsl/vsl.css">
+    <!-- PERF FIX #1: Google Fonts carregada de forma assíncrona + apenas pesos 400 e 700 -->
+    <link rel="preload" 
+          href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" 
+          as="style" 
+          onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    </noscript>
+
+    <!-- PERF FIX #2: CSS crítico inline (above the fold) -->
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;max-width:100%}
+        html,body{overflow-x:hidden;width:100%}
+        body{font-family:'Roboto',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,sans-serif;background-color:#fff;color:#000;text-align:center;line-height:1.4;padding:0 15px;-webkit-font-smoothing:antialiased;word-break:break-word;overflow-wrap:break-word}
+        .vsl-container{width:100%;max-width:800px;margin:0 auto;padding-top:15px}
+        .headline-red{color:#ff0000;font-size:2.2rem;font-weight:700;margin-bottom:0}
+        .headline-black{color:#000;font-size:2.2rem;font-weight:700;margin-bottom:10px}
+        .viewers-pill{display:inline-flex;align-items:center;background-color:#7d4cf6;color:#fff;padding:6px 18px;border-radius:50px;font-size:.85rem;font-weight:500;margin-bottom:15px;box-shadow:0 0 15px rgba(125,76,246,.4)}
+        .live-dot{width:6px;height:6px;background-color:#0f0;border-radius:50%;margin-right:8px;animation:blink 1.5s infinite}
+        @keyframes blink{0%{opacity:1}50%{opacity:.2}100%{opacity:1}}
+        .highlight-yellow{color:#ffb400;margin:0 4px;font-weight:600}
+        .video-wrapper{max-width:440px;margin:0 auto 10px}
+        .delayed-offer-container{max-width:440px;margin:0 auto 0;display:none;flex-direction:column;align-items:center}
+        footer{border-top:1px solid transparent;padding-top:20px;padding-bottom:50px;font-size:.75rem;color:#aaa}
+        @media(max-width:600px){.headline-red,.headline-black{font-size:1.7rem}}
+    </style>
+
+    <!-- PERF FIX #2: CSS completo carregado de forma assíncrona -->
+    <link rel="preload" href="/vsl/vsl.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/vsl/vsl.css"></noscript>
 
     <!-- VTurb Speed Optimization -->
     <script>!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);</script>
     <link rel="preload" href="https://scripts.converteai.net/52ab898a-2836-4436-851f-b100491ec425/players/69ea48809813ca264c297441/v4/player.js" as="script">
     <link rel="preload" href="https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js" as="script">
     <link rel="preload" href="https://cdn.converteai.net/52ab898a-2836-4436-851f-b100491ec425/69ea461b05c3ed4453df493f/main.m3u8" as="fetch">
-    <link rel="dns-prefetch" href="https://cdn.converteai.net">
-    <link rel="dns-prefetch" href="https://scripts.converteai.net">
-    <link rel="dns-prefetch" href="https://images.converteai.net">
-    <link rel="dns-prefetch" href="https://api.vturb.com.br">
     
-    <!-- Meta Pixel Code -->
+    <!-- PERF FIX #3: Meta Pixel carregado de forma lazy (após 3s ou interação) -->
     <script>
-        !function (f, b, e, v, n, t, s) {
-            if (f.fbq) return; n = f.fbq = function () {
-                n.callMethod ?
-                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-            };
-            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
-            n.queue = []; t = b.createElement(e); t.async = !0;
-            t.src = v; s = b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t, s)
-        }(window, document, 'script',
-            'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', '1506832047736216');
-        fbq('track', 'PageView');
+        // Stub leve do fbq (captura eventos antes do script carregar)
+        !function(f){if(f.fbq)return;var n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!1;n.version='2.0';n.queue=[]}(window);
+        fbq('init','1506832047736216');
+        fbq('track','PageView');
+        
+        // Carrega o script pesado do Facebook depois
+        function loadFBPixel(){
+            if(window.fbPixelLoaded)return;
+            window.fbPixelLoaded=true;
+            var s=document.createElement('script');
+            s.src='https://connect.facebook.net/en_US/fbevents.js';
+            s.async=true;
+            document.head.appendChild(s);
+        }
+        setTimeout(loadFBPixel,3000);
+        document.addEventListener('scroll',loadFBPixel,{once:true});
+        document.addEventListener('click',loadFBPixel,{once:true});
+        document.addEventListener('touchstart',loadFBPixel,{once:true});
     </script>
     <noscript><img height="1" width="1" style="display:none"
             src="https://www.facebook.com/tr?id=1506832047736216&ev=PageView&noscript=1" /></noscript>
-    <!-- End Meta Pixel Code -->
 
-    <!-- Clarity Tracking Code -->
+    <!-- Clarity Tracking Code (já é async, OK) -->
     <script type="text/javascript">
         (function (c, l, a, r, i, t, y) {
             c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
@@ -108,7 +143,7 @@
                     ruego: <span class="dr-underline">nunca te rindas</span>. Por favor, dale una oportunidad y pruébalo
                     de verdad por unos días; las palabras no pueden describirlo, simplemente tienes que vivirlo."</p>
                 <img src="https://i.postimg.cc/L8tNTQLx/image-Photoroom-2026-04-23T131304-138.webp" alt="Oferta Especial"
-                    class="offer-image" width="400" height="200" loading="lazy">
+                    class="offer-image" width="400" height="200" loading="lazy" decoding="async">
             </div>
 
             <a href="https://pay.hotmart.com/B104821327A?checkoutMode=10"
@@ -137,7 +172,8 @@
         <p>Soporte: support@tinnituswave.com</p>
     </footer>
 
-    <script src="/vsl/vsl.js"></script>
+    <!-- PERF FIX #2: JS com defer (não bloqueia parsing) -->
+    <script src="/vsl/vsl.js" defer></script>
 </body>
 
 </html>
