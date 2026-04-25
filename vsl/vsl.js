@@ -35,84 +35,59 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Configuração do Botão Delay (Liberação da oferta aos 13:30)
-    const OFFER_MINUTES = 13;
-    const OFFER_SECONDS = 30;
-    const TOTAL_OFFER_MS = ((OFFER_MINUTES * 60) + OFFER_SECONDS) * 1000;
-
+    const OFFER_DELAY = (13 * 60 + 30) * 1000;
     // Configuração do Contador (Aparece aos 16:35)
-    const TIMER_MINUTES = 16;
-    const TIMER_SECONDS = 35;
-    const TOTAL_TIMER_MS = ((TIMER_MINUTES * 60) + TIMER_SECONDS) * 1000;
+    const TIMER_DELAY = (16 * 60 + 35) * 1000;
 
     const delayedOffer = document.getElementById('delayed-offer');
     if (delayedOffer) {
-        // Fallback básico para liberar a oferta
-        let offerFallback = setTimeout(() => {
-            showOffer();
-        }, TOTAL_OFFER_MS);
+        let offerShown = false;
+        let timerShown = false;
 
-        // Fallback básico para o timer
-        let timerFallback = setTimeout(() => {
-            showTimer();
-        }, TOTAL_TIMER_MS);
+        // Gatilhos de tempo simples (Baseados no carregamento da página)
+        setTimeout(showOffer, OFFER_DELAY);
+        setTimeout(showTimer, TIMER_DELAY);
 
-        // Sincronização com o VTurb
+        // Sincronização secundária com VTurb
         const checkVTurb = setInterval(() => {
             try {
-                if (window.smartplayer && window.smartplayer.instances) {
-                    const instances = window.smartplayer.instances;
-                    const playerKey = Object.keys(instances)[0]; 
-                    const player = instances[playerKey];
-
-                    if (player && player.video) {
-                        const videoTime = player.video.currentTime;
-                        // console.log("VTurb Time:", videoTime); // Debug opcional
-
-                        // Verifica liberação da oferta
-                        if (videoTime >= (OFFER_MINUTES * 60) + OFFER_SECONDS) {
-                            showOffer();
-                        }
-
-                        // Verifica exibição do timer
-                        if (videoTime >= (TIMER_MINUTES * 60) + TIMER_SECONDS) {
-                            showTimer();
-                            clearInterval(checkVTurb);
-                        }
+                if (window.smartplayer && window.smartplayer.instances && window.smartplayer.instances[0]) {
+                    const videoTime = window.smartplayer.instances[0].video.currentTime;
+                    if (videoTime >= (13 * 60 + 30)) showOffer();
+                    if (videoTime >= (16 * 60 + 35)) {
+                        showTimer();
+                        clearInterval(checkVTurb);
                     }
                 }
-            } catch (e) {
-                console.error("Erro ao sincronizar VTurb:", e);
-            }
+            } catch (e) { }
         }, 1000);
 
         function showOffer() {
-            if (delayedOffer.style.display !== 'flex') {
-                delayedOffer.style.display = 'flex';
-                clearTimeout(offerFallback);
-            }
+            if (offerShown) return;
+            delayedOffer.style.display = 'flex';
+            offerShown = true;
         }
 
         function showTimer() {
+            if (timerShown) return;
             const timerContainer = document.querySelector('.countdown-container');
-            if (timerContainer && timerContainer.style.display !== 'block') {
+            if (timerContainer) {
                 timerContainer.style.display = 'block';
-                clearTimeout(timerFallback);
-                startCountdown(30 * 60); // 30 minutos
+                startCountdown(30 * 60);
+                timerShown = true;
             }
         }
 
         function startCountdown(duration) {
             const timerDisplay = document.getElementById('countdown-timer');
+            if (!timerDisplay) return;
             let timer = duration, minutes, seconds;
             const interval = setInterval(function () {
                 minutes = parseInt(timer / 60, 10);
                 seconds = parseInt(timer % 60, 10);
-
                 minutes = minutes < 10 ? "0" + minutes : minutes;
                 seconds = seconds < 10 ? "0" + seconds : seconds;
-
                 timerDisplay.textContent = minutes + ":" + seconds;
-
                 if (--timer < 0) {
                     clearInterval(interval);
                     timerDisplay.textContent = "00:00";
