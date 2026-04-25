@@ -59,21 +59,30 @@ document.addEventListener('DOMContentLoaded', () => {
         // Sincronização com o VTurb
         const checkVTurb = setInterval(() => {
             try {
-                if (window.smartplayer && window.smartplayer.instances && window.smartplayer.instances[0]) {
-                    const videoTime = window.smartplayer.instances[0].video.currentTime;
-                    
-                    // Verifica liberação da oferta
-                    if (videoTime >= (OFFER_MINUTES * 60) + OFFER_SECONDS) {
-                        showOffer();
-                    }
+                if (window.smartplayer && window.smartplayer.instances) {
+                    const instances = window.smartplayer.instances;
+                    const playerKey = Object.keys(instances)[0]; 
+                    const player = instances[playerKey];
 
-                    // Verifica exibição do timer
-                    if (videoTime >= (TIMER_MINUTES * 60) + TIMER_SECONDS) {
-                        showTimer();
-                        clearInterval(checkVTurb);
+                    if (player && player.video) {
+                        const videoTime = player.video.currentTime;
+                        // console.log("VTurb Time:", videoTime); // Debug opcional
+
+                        // Verifica liberação da oferta
+                        if (videoTime >= (OFFER_MINUTES * 60) + OFFER_SECONDS) {
+                            showOffer();
+                        }
+
+                        // Verifica exibição do timer
+                        if (videoTime >= (TIMER_MINUTES * 60) + TIMER_SECONDS) {
+                            showTimer();
+                            clearInterval(checkVTurb);
+                        }
                     }
                 }
-            } catch (e) { }
+            } catch (e) {
+                console.error("Erro ao sincronizar VTurb:", e);
+            }
         }, 1000);
 
         function showOffer() {
