@@ -223,6 +223,35 @@ footer a:hover {
     font-weight: 700;
 }
 
+.countdown-container {
+    display: none;
+    width: 100%;
+    margin-bottom: 20px;
+    text-align: center;
+    background-color: #fff0f0;
+    border: 2px solid #ff0000;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(255, 0, 0, 0.1);
+}
+
+.countdown-text {
+    color: #ff0000;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.countdown-timer {
+    color: #ff0000;
+    font-size: 3.5rem;
+    font-weight: 900;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+}
+
 .yellow-btn {
     background: linear-gradient(180deg, #ffe229 0%, #ffc600 100%);
     color: #0d1e8a;
@@ -376,5 +405,9 @@ footer a:hover {
 
     .dr-note-box {
         padding: 20px 15px;
+    }
+
+    .countdown-timer {
+        font-size: 2.5rem;
     }
 }

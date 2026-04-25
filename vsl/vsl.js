@@ -35,30 +35,80 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Configuração do Botão Delay (Liberação da oferta aos 13:30)
-    const DELAY_MINUTES = 13;
-    const DELAY_SECONDS = 30;
-    const TOTAL_DELAY_MS = ((DELAY_MINUTES * 60) + DELAY_SECONDS) * 1000;
+    const OFFER_MINUTES = 13;
+    const OFFER_SECONDS = 30;
+    const TOTAL_OFFER_MS = ((OFFER_MINUTES * 60) + OFFER_SECONDS) * 1000;
+
+    // Configuração do Contador (Aparece aos 16:35)
+    const TIMER_MINUTES = 16;
+    const TIMER_SECONDS = 35;
+    const TOTAL_TIMER_MS = ((TIMER_MINUTES * 60) + TIMER_SECONDS) * 1000;
 
     const delayedOffer = document.getElementById('delayed-offer');
     if (delayedOffer) {
-        // Fallback básico para liberar caso a pessoa saia da aba ou video travar (usa relógio)
-        let fallbackTimer = setTimeout(() => {
-            delayedOffer.style.display = 'flex';
-        }, TOTAL_DELAY_MS);
+        // Fallback básico para liberar a oferta
+        let offerFallback = setTimeout(() => {
+            showOffer();
+        }, TOTAL_OFFER_MS);
 
-        // Tentativa de Sincronizar com o VTurb exatamente (caso o usuario pause)
-        const SECONDS_TO_DISPLAY = (DELAY_MINUTES * 60) + DELAY_SECONDS;
+        // Fallback básico para o timer
+        let timerFallback = setTimeout(() => {
+            showTimer();
+        }, TOTAL_TIMER_MS);
+
+        // Sincronização com o VTurb
         const checkVTurb = setInterval(() => {
             try {
                 if (window.smartplayer && window.smartplayer.instances && window.smartplayer.instances[0]) {
                     const videoTime = window.smartplayer.instances[0].video.currentTime;
-                    if (videoTime >= SECONDS_TO_DISPLAY) {
-                        delayedOffer.style.display = 'flex';
-                        clearTimeout(fallbackTimer);
+                    
+                    // Verifica liberação da oferta
+                    if (videoTime >= (OFFER_MINUTES * 60) + OFFER_SECONDS) {
+                        showOffer();
+                    }
+
+                    // Verifica exibição do timer
+                    if (videoTime >= (TIMER_MINUTES * 60) + TIMER_SECONDS) {
+                        showTimer();
                         clearInterval(checkVTurb);
                     }
                 }
             } catch (e) { }
         }, 1000);
+
+        function showOffer() {
+            if (delayedOffer.style.display !== 'flex') {
+                delayedOffer.style.display = 'flex';
+                clearTimeout(offerFallback);
+            }
+        }
+
+        function showTimer() {
+            const timerContainer = document.querySelector('.countdown-container');
+            if (timerContainer && timerContainer.style.display !== 'block') {
+                timerContainer.style.display = 'block';
+                clearTimeout(timerFallback);
+                startCountdown(30 * 60); // 30 minutos
+            }
+        }
+
+        function startCountdown(duration) {
+            const timerDisplay = document.getElementById('countdown-timer');
+            let timer = duration, minutes, seconds;
+            const interval = setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                timerDisplay.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    clearInterval(interval);
+                    timerDisplay.textContent = "00:00";
+                }
+            }, 1000);
+        }
     }
 });
