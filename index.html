@@ -22,70 +22,25 @@
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     
-    <link rel="preconnect" href="https://cdn.converteai.net" crossorigin>
-    <link rel="preconnect" href="https://vt-h-1.b-cdn.net" crossorigin>
+    <link rel="preconnect" href="https://cdn.converteai.net">
+    <link rel="preconnect" href="https://vt-h-1.b-cdn.net">
+    <link rel="preconnect" href="https://api.vturb.com.br">
     <link rel="preconnect" href="https://scripts.converteai.net" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <!-- DNS prefetch para VTurb e secundários -->
-    <link rel="dns-prefetch" href="https://cdn.converteai.net">
-    <link rel="dns-prefetch" href="https://scripts.converteai.net">
+    <!-- DNS prefetch para secundários -->
     <link rel="dns-prefetch" href="https://images.converteai.net">
-    <link rel="dns-prefetch" href="https://api.vturb.com.br">
     <link rel="dns-prefetch" href="https://connect.facebook.net">
     <link rel="dns-prefetch" href="https://www.facebook.com">
     
-    <!-- PERF FIX #1: Google Fonts carregada de forma assíncrona + apenas pesos 400 e 700 -->
-    <link rel="preload" 
-          href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" 
-          as="style" 
-          onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    </noscript>
+    <!-- PERF FIX #1: Google Fonts carregada de forma síncrona para evitar CLS -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
-    <!-- PERF FIX #2: CSS crítico inline (above the fold) -->
+    <!-- PERF FIX #2: CSS totalmente inline para evitar bloqueio de renderização -->
     <style>
-        *{margin:0;padding:0;box-sizing:border-box;max-width:100%}
-        html,body{overflow-x:hidden;width:100%}
-        body{font-family:'Roboto',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,sans-serif;background-color:#fff;color:#000;text-align:center;line-height:1.4;padding:0 15px;-webkit-font-smoothing:antialiased;word-break:break-word;overflow-wrap:break-word}
-        .vsl-container{width:100%;max-width:800px;margin:0 auto;padding-top:15px}
-        .headline-red{color:#ff0000;font-size:2.2rem;font-weight:700;margin-bottom:0}
-        .headline-black{color:#000;font-size:2.2rem;font-weight:700;margin-bottom:10px}
-        .viewers-pill{display:inline-flex;align-items:center;background-color:#7d4cf6;color:#fff;padding:6px 18px;border-radius:50px;font-size:.85rem;font-weight:500;margin-bottom:15px;box-shadow:0 0 15px rgba(125,76,246,.4)}
-        .live-dot{width:6px;height:6px;background-color:#0f0;border-radius:50%;margin-right:8px;animation:blink 1.5s infinite}
-        @keyframes blink{0%{opacity:1}50%{opacity:.2}100%{opacity:1}}
-        .highlight-yellow{color:#ffb400;margin:0 4px;font-weight:600}
-        .video-wrapper{max-width:440px;margin:0 auto 10px}
-        .delayed-offer-container{max-width:440px;margin:0 auto 0;display:none;flex-direction:column;align-items:center}
-        .countdown-container {
-            display: none; width: 100%; margin: 15px 0 25px; padding: 20px 10px; background: #fff;
-            border: 4px solid #ff0000; border-radius: 15px; box-shadow: 0 8px 25px rgba(255,0,0,0.2);
-            text-align: center; position: relative; overflow: hidden;
-            animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-        @keyframes bounceIn {
-            0% { transform: scale(0.3); opacity: 0; }
-            50% { transform: scale(1.05); opacity: 1; }
-            70% { transform: scale(0.9); }
-            100% { transform: scale(1); }
-        }
-        .countdown-container::before {
-            content: '¡OFERTA POR TIEMPO LIMITADO!'; position: absolute; top: 0; left: 0; width: 100%;
-            background: #ff0000; color: #fff; font-size: 0.7rem; font-weight: 900; padding: 3px 0; letter-spacing: 1.5px;
-        }
-        .countdown-text { font-size: 1rem; font-weight: 800; color: #000; margin-top: 15px; margin-bottom: 2px; text-transform: uppercase; }
-        .countdown-timer { font-size: 4rem; font-weight: 900; color: #ff0000; line-height: 1; font-family: sans-serif; font-variant-numeric: tabular-nums; text-shadow: 2px 2px 0 rgba(0,0,0,0.05); letter-spacing: -1px; }
-        footer{border-top:1px solid transparent;padding-top:20px;padding-bottom:50px;font-size:.75rem;color:#aaa}
-        @media(max-width:600px){
-            .headline-red,.headline-black{font-size:1.7rem}
-            .countdown-timer { font-size: 3rem; }
-        }
+*{margin:0;padding:0;box-sizing:border-box;max-width:100%}html,body{overflow-x:hidden;width:100%}body{font-family:'Roboto',sans-serif;background-color:#ffffff;color:#000000;text-align:center;line-height:1.4;padding:0 15px;-webkit-font-smoothing:antialiased;word-break:break-word;overflow-wrap:break-word}.vsl-container{width:100%;max-width:800px;margin:0 auto;padding-top:15px}.headline-red{color:#ff0000;font-size:2.2rem;font-weight:700;margin-bottom:0px}.headline-black{color:#000000;font-size:2.2rem;font-weight:700;margin-bottom:10px}.viewers-pill{display:inline-flex;align-items:center;background-color:#7d4cf6;color:#ffffff;padding:6px 18px;border-radius:50px;font-size:0.85rem;font-weight:500;margin-bottom:15px;box-shadow:0 0 15px rgba(125,76,246,0.4)}.live-dot{width:6px;height:6px;background-color:#00ff00;border-radius:50%;margin-right:8px;animation:blink 1.5s infinite}@keyframes blink{0%{opacity:1}50%{opacity:0.2}100%{opacity:1}}.highlight-yellow{color:#ffb400;margin:0 4px;font-weight:600}.video-wrapper{max-width:440px;margin:0 auto 10px}.video-placeholder{width:100%;aspect-ratio:4/5;border:1px solid #777;background-color:#ffffff;position:relative;display:flex;align-items:center;justify-content:center;padding:40px}.video-placeholder p{font-size:1.25rem;color:#222;max-width:90%;font-weight:400;font-family:Arial,sans-serif;line-height:1.5}.progress-bar-container{position:absolute;bottom:0;left:0;width:100%;height:12px;background-color:#f1f1f1}.progress-bar{width:58%;height:100%;background-color:#ff3333}.reviews-section{margin-top:25px;margin-bottom:50px}.stars{display:flex;justify-content:center;gap:3px;margin-bottom:8px}.star{display:inline-flex;justify-content:center;align-items:center;width:25px;height:25px;background-color:#00b67a;color:#ffffff;font-size:18px;border-radius:2px}.trust-score{color:#007a53;font-weight:700;font-size:1.05rem;margin-bottom:4px}.review-count{color:#999999;font-size:0.85rem;text-transform:uppercase;font-weight:400}footer{border-top:1px solid transparent;padding-top:20px;padding-bottom:50px;font-size:0.75rem;color:#aaaaaa}footer p{margin-bottom:4px}footer a{color:#aaaaaa;text-decoration:none}footer a:hover{text-decoration:underline}.delayed-offer-container{max-width:440px;margin:0 auto 0;display:none;flex-direction:column;align-items:center}.purchasing-now{background-color:#fffae6;width:100%;padding:10px;font-size:0.9rem;color:#333;margin-bottom:15px;font-weight:400}#buyers-count{font-weight:700}.countdown-container{display:none;width:100%;margin:15px 0 30px;padding:25px 15px;background:#ffffff;border:4px solid #ff0000;border-radius:20px;box-shadow:0 10px 40px rgba(255,0,0,0.2);text-align:center;position:relative;overflow:hidden;animation:bounceIn 0.8s cubic-bezier(0.68,-0.55,0.265,1.55)}@keyframes bounceIn{0%{transform:scale(0.3);opacity:0}50%{transform:scale(1.05);opacity:1}70%{transform:scale(0.9)}100%{transform:scale(1)}}.countdown-container::before{content:'¡OFERTA POR TIEMPO LIMITADO!';position:absolute;top:0;left:0;width:100%;background:#ff0000;color:#fff;font-size:0.75rem;font-weight:900;padding:4px 0;letter-spacing:2px}.countdown-text{font-size:1.1rem;font-weight:900;color:#000;margin-top:15px;margin-bottom:5px;text-transform:uppercase;letter-spacing:1px}.countdown-timer{font-size:5rem;font-weight:950;color:#ff0000;line-height:1;font-family:'Roboto',sans-serif;font-variant-numeric:tabular-nums;text-shadow:3px 3px 0px rgba(0,0,0,0.05);letter-spacing:-2px}.yellow-btn{background:linear-gradient(180deg,#ffe229 0%,#ffc600 100%);color:#0d1e8a;font-size:2.2rem;font-family:'Roboto',sans-serif;font-weight:900;text-transform:uppercase;text-decoration:none;padding:18px 25px;border-radius:8px;width:100%;border:1px solid #e0ad00;box-shadow:0 4px 10px rgba(0,0,0,0.15);margin-bottom:25px;display:flex;justify-content:center;align-items:center;animation:pulse-zoom 2s infinite ease-in-out;transition:transform 0.2s ease,box-shadow 0.2s ease,filter 0.2s ease}.yellow-btn:hover{transform:scale(1.05);filter:brightness(1.05);animation-play-state:paused}@keyframes pulse-zoom{0%{transform:scale(1);box-shadow:0 4px 10px rgba(0,0,0,0.15)}50%{transform:scale(1.03);box-shadow:0 10px 20px rgba(255,198,0,0.3)}100%{transform:scale(1);box-shadow:0 4px 10px rgba(0,0,0,0.15)}}.secondary-btn{color:#2b3990;background:linear-gradient(180deg,#ffeda6 0%,#ffd94d 100%);border-color:#e6b800}.cta-text-links{margin-bottom:35px;width:100%}.cta-text-links a{display:block;color:#5d2b96;font-size:1.05rem;text-decoration:underline;margin-bottom:6px;font-weight:500}.cta-text-links a:hover{color:#3b1b60}.dr-note-box{background-color:#fffff7;border:2px dashed #ead268;border-radius:12px;padding:25px 30px;width:100%;margin-bottom:35px;box-shadow:0 5px 15px rgba(0,0,0,0.03);text-align:center}.dr-note-title{color:#d32f2f;font-size:1.15rem;font-weight:800;margin-bottom:12px}.dr-note-text{font-style:italic;font-size:1.05rem;color:#222;line-height:1.5;margin-bottom:25px;font-family:'Times New Roman',serif}.dr-underline{text-decoration:underline;font-weight:600}.offer-image{max-width:100%;height:auto;display:block;margin:0 auto}.final-cart-link{color:#5d2b96;font-size:1.8rem;font-weight:800;text-decoration:underline;text-transform:uppercase;display:block;margin-top:-10px;margin-bottom:40px}.final-cart-link:hover{color:#3b1b60}@media (max-width:600px){.headline-red{font-size:1.7rem}.headline-black{font-size:1.7rem}.desktop-br{display:none}.video-placeholder p{font-size:1.05rem}.yellow-btn{font-size:1.7rem;padding:15px 15px}.final-cart-link{font-size:1.4rem}.dr-note-box{padding:20px 15px}.countdown-timer{font-size:2.5rem}}
     </style>
-
-    <!-- CSS completo -->
-    <link rel="stylesheet" href="/vsl/vsl.css">
 
     <!-- VTurb Speed Optimization -->
     <script>!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);</script>
